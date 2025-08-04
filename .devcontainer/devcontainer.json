@@ -1,0 +1,82 @@
+{
+  "name": "GoodMem DevContainer",
+  "image": "ghcr.io/pair-systems-inc/goodmem-dev:latest",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-vscode.vscode-json",
+        "ms-vscode.rest-client",
+        "redhat.java",
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-maven",
+        "vscjava.vscode-java-test",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-dotnettools.csdevkit",
+        "golang.go",
+        "ms-vscode.vscode-typescript-next",
+        "ms-vscode.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-node-azure-pack",
+        "GitLab.gitlab-workflow",
+        "ms-vscode.vscode-github-pullrequest",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.formatting.provider": "black",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "java.home": "/usr/lib/jvm/java-17-openjdk-amd64",
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-17",
+            "path": "/usr/lib/jvm/java-17-openjdk-amd64"
+          }
+        ],
+        "dotnet.defaultSolution": "disable",
+        "omnisharp.enableRoslynAnalyzers": true,
+        "go.toolsManagement.checkForUpdates": "local",
+        "go.useLanguageServer": true,
+        "go.gopath": "/home/vscode/go",
+        "go.goroot": "/usr/local/go",
+        "typescript.preferences.quoteStyle": "double",
+        "javascript.preferences.quoteStyle": "double",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        "files.associations": {
+          "*.env": "dotenv"
+        }
+      }
+    }
+  },
+  "forwardPorts": [8080, 9090, 5432, 8001],
+  "portsAttributes": {
+    "8080": {
+      "label": "GoodMem REST API",
+      "onAutoForward": "notify"
+    },
+    "9090": {
+      "label": "GoodMem gRPC API"
+    },
+    "5432": {
+      "label": "PostgreSQL Database"
+    },
+    "8001": {
+      "label": "JobRunr Dashboard"
+    }
+  },
+  "mounts": [
+    "source=goodmem-postgres-data,target=/var/lib/postgresql/data,type=volume",
+    "source=goodmem-docker-data,target=/var/lib/docker,type=volume"
+  ],
+  "remoteUser": "vscode"
+}
