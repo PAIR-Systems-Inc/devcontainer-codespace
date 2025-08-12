@@ -31,38 +31,3 @@ This is the fastest way to get started. Use this if you're beginning a new proje
 **Simply click the button below:**
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=pair-systems-inc/goodmem-template-repository)
-<!-- 
-    IMPORTANT: For the button above to work, you must create a public GitHub repository
-    at 'github.com/pair-systems-inc/goodmem-template-repository' and make it a "Template Repository" 
-    in its settings. It should contain your .devcontainer/devcontainer.json file.
--->
-
-**What this does:**
-* Creates a new, private GitHub repository for you.
-* Launches a GitHub Codespace with the Goodmem Devcontainer fully configured and ready to go.
-* You can start creating files and writing code immediately.
-
-#### Option 2: Add to an Existing Project
-
-Use this method if you have an existing project on your desktop and want to add the Goodmem environment to it.
-
-1.  Open your project in your local VS Code.
-2.  Open the Command Palette with `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac).
-3.  Type and select **"Dev Containers: Add Dev Container Configuration Files..."**
-4.  Choose **"From a template."**
-5.  When prompted, paste in the template URL: `ghcr.io/pair-systems-inc/templates/goodmem-dev`
-6.  Follow the prompts, accepting the default settings.
-7.  When VS Code asks, click **"Reopen in Container."** Your project will now be running inside the Goodmem dev environment.
-
----
-
-## Your First Run: Setting Up and Testing GoodMem
-
-Once your Codespace is running or you've opened the project in a local dev container, follow these steps to configure your API keys and run your first test. This entire process happens inside the VS Code environment.
-
-#### Step 1: Create Your Environment File
-
-You will store your secret API keys in an environment file. In the VS Code terminal (at the bottom of the editor), create a new `.env` file by running this command:
-
-```bash
-touch .env
