@@ -1,9 +1,6 @@
 {
   "name": "GoodMem Dev Container",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "postCreateCommand": "echo -e 'OPENAI_API_KEY=\\nADD_API_KEY=' > /workspaces/.env && curl -s https://get.goodmem.ai | bash -s -- --debug-install --no-openai-embedder-registration",
+  "build": { "dockerfile": "Dockerfile" },
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
@@ -11,8 +8,15 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-vscode.vscode-docker"
+        "ms-vscode.vscode-docker",
+        "vscjava.vscode-java-pack",
+        "ms-dotnettools.csharp",
+        "golang.go",
+        "ms-vscode.vscode-typescript-next"
       ]
     }
-  }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "/bin/bash -lc '\nset -euo pipefail\n\n# 1) .env with placeholders (idempotent)\nif [ ! -f .env ]; then printf \"OPENAI_API_KEY=\\nADD_API_KEY=\\n\" > .env; fi\n\n# 2) Scaffold Java sample project (isolated from your repo build)\nmkdir -p .goodmem/samples/java/src/main/java/com/pairsystems/goodmem/sample\ncat > .goodmem/samples/java/pom.xml <<\"POM\"\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n  <modelVersion>4.0.0</modelVersion>\n  <groupId>com.pairsystems.goodmem.sample</groupId>\n  <artifactId>goodmem-java-sample</artifactId>\n  <version>0.0.1</version>\n  <properties>\n    <maven.compiler.source>17</maven.compiler.source>\n    <maven.compiler.target>17</maven.compiler.target>\n  </properties>\n  <dependencies>\n    <dependency>\n      <groupId>ai.pairsys.goodmem</groupId>\n      <artifactId>goodmem-client-java</artifactId>\n      <version>1.0.2</version>\n    </dependency>\n    <dependency>\n      <groupId>io.github.cdimascio</groupId>\n      <artifactId>java-dotenv</artifactId>\n      <version>5.2.2</version>\n    </dependency>\n  </dependencies>\n</project>\nPOM\n\ncat > .goodmem/samples/java/src/main/java/com/pairsystems/goodmem/sample/GoodMemTest.java <<\"JAVA\"\npackage com.pairsystems.goodmem.sample;\n\nimport io.github.cdimascio.dotenv.Dotenv;\nimport com.pairsystems.goodmem.client.Client;\n\npublic class GoodMemTest {\n  public static void main(String[] args) throws Exception {\n    System.out.println(\"\\nLoading environment variables...\");\n    Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();\n\n    final String host = \"http://localhost:8080\";\n    final String apiKey = dotenv.get(\"ADD_API_KEY\");\n\n    if (apiKey == null || apiKey.isBlank() || apiKey.contains(\"ADD\")) {\n      System.out.println(\"API key missing; set ADD_API_KEY in .env\");\n      return;\n    }\n\n    Client client = new Client(host);\n    client.setApiKey(apiKey);\n\n    var spacesApi = client.getSpacesApi();\n    var resp = spacesApi.listSpaces();\n    System.out.println(\"listSpaces succeeded with \" + resp.getSpaces().size() + \" space(s).\");\n  }\n}\nJAVA\n\n# Build once to warm caches; try offline first, then online if needed\n(cd .goodmem/samples/java && mvn -q -o -DskipTests package || mvn -q -DskipTests package)\n\n# 3) Drop your Python test into src/test/python/ (idempotent)\nmkdir -p src/test/python\nif [ ! -f src/test/python/test_goodmem.py ]; then\n  cat > src/test/python/test_goodmem.py <<\"PY\"\nimport os\nimport requests\nfrom dotenv import load_dotenv\nfrom goodmem_client.api import APIKeysApi, MemoriesApi, SpacesApi\nfrom goodmem_client.api_client import ApiClient\nfrom goodmem_client.configuration import Configuration\n\nprint(\"\\nLoading environment variables...\")\nload_dotenv(dotenv_path=\".env\")\nHOST_URL = \"http://localhost:8080\"\nAPI_KEY = os.getenv(\"ADD_API_KEY\")\nOPENAI_API_KEY = os.getenv(\"OPENAI_API_KEY\")\nprint(f\"API_KEY loaded: {'FOUND' if API_KEY and 'ADD' not in API_KEY else 'MISSING or PLACEHOLDER'}\")\nprint(f\"OPENAI_API_KEY loaded: {'FOUND' if OPENAI_API_KEY and 'your-openai-key' not in OPENAI_API_KEY else 'MISSING or PLACEHOLDER'}\")\n\nprint(\"\\nTesting raw HTTP API...\")\ntry:\n    headers = {\"x-api-key\": API_KEY} if API_KEY and \"ADD\" not in API_KEY else {}\n    response = requests.get(f\"{HOST_URL}/v1/spaces\", headers=headers)\n    print(f\"Response status: {response.status_code}\")\nexcept Exception as e:\n    print(f\"API request failed: {e}\")\n\napi_client = None\nspaces_api_instance = None\nif API_KEY and \"ADD\" not in API_KEY:\n    configuration = Configuration()\n    configuration.host = HOST_URL\n    api_client = ApiClient(configuration=configuration)\n    api_client.default_headers[\"x-api-key\"] = API_KEY\n    spaces_api_instance = SpacesApi(api_client)\nelse:\n    print(\"Cannot initialize SDK — API key missing.\")\n\nprint(\"\\nTesting GoodMem Python SDK...\")\nif spaces_api_instance:\n    try:\n        resp = spaces_api_instance.list_spaces()\n        print(f\"SDK list_spaces succeeded with {len(resp.spaces)} space(s).\")\n    except Exception as e:\n        print(f\"SDK test failed: {e}\")\nPY\nfi\n'"},
+  "postStartCommand": "true"
 }
