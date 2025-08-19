@@ -35,19 +35,22 @@ RUN pip install --no-cache-dir --break-system-packages \
 # JavaScript SDK
 RUN npm install -g @pairsystems/goodmem-client
 
-# .NET SDK (NuGet) - pre-cached via dummy project
+# .NET SDK - cache via dummy project
 RUN dotnet new console -n tempApp && \
     cd tempApp && \
     dotnet add package Pairsystems.Goodmem.Client && \
     dotnet restore && \
     cd .. && rm -rf tempApp
 
-# Go SDK
+# Go SDK - pre-cached using dummy import
 ENV GOPATH=/home/vscode/go
 ENV PATH="$GOPATH/bin:$PATH"
-RUN go install github.com/PAIR-Systems-Inc/goodmem/clients/go@latest
+RUN mkdir -p /tmp/goodmem-go && cd /tmp/goodmem-go && \
+    go mod init goodmem-test && \
+    go get github.com/PAIR-Systems-Inc/goodmem/clients/go@latest && \
+    rm -rf /tmp/goodmem-go
 
-# Java SDK - pre-cached in Maven local repo
+# Java SDK - preload via Maven
 RUN mvn dependency:get -Dartifact=ai.pairsys.goodmem:goodmem-client-java:latest
 
 # Create dev user
