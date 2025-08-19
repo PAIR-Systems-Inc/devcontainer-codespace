@@ -4,13 +4,13 @@ The **Goodmem Devcontainer** is a complete, zero-configuration development envir
 
 ---
 
-### What's Included 📦
+### What's Included 
 
 * **Languages:** Python 3.10 (with GoodMem & OpenAI SDKs), Java 17, .NET 8, Go 1.22, and Node.js 20 (with pnpm).
 * **VS Code Extensions:** Pre-installed extensions for all included languages, plus essential linters and formatters.
 * **Ready to Use:** Pre-configured shell access as the `vscode` user. All settings are baked into the image — no setup scripts needed.
 
-### The Benefits ✅
+### The Benefits 
 
 * **Zero Setup Time:** No need to manually install compilers, SDKs, linters, or extensions.
 * **Consistency:** Everyone on the team uses the exact same environment, eliminating "it works on my machine" problems.
