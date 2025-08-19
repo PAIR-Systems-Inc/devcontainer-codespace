@@ -51,7 +51,8 @@ RUN mkdir -p /tmp/goodmem-go && cd /tmp/goodmem-go && \
     rm -rf /tmp/goodmem-go
 
 # Java SDK - preload via Maven
-RUN mvn dependency:get -Dartifact=ai.pairsys.goodmem:goodmem-client-java:latest
+RUN mvn dependency:get -Dartifact=ai.pairsys.goodmem:goodmem-client-java:1.0.2
+
 
 # Create dev user
 RUN useradd -m -s /bin/bash vscode && \
