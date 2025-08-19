@@ -3,7 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "echo \"alias install-goodmem='bash ./.devcontainer/final_installer.sh'\" >> ~/.bashrc && echo \"alias install-goodmem='bash ./.devcontainer/final_installer.sh'\" >> ~/.zshrc",
+  "postCreateCommand": "curl -s https://get.goodmem.ai | bash -s -- --debug-install",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
