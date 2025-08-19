@@ -3,6 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "postCreateCommand": "echo -e 'OPENAI_API_KEY=\\nADD_API_KEY=' > /workspaces/.env && curl -s https://get.goodmem.ai | bash -s -- --debug-install --no-openai-embedder-registration",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
@@ -13,7 +14,5 @@
         "ms-vscode.vscode-docker"
       ]
     }
-  },
-  "remoteUser": "vscode",
-  "postCreateCommand": "bash .devcontainer/setup.sh"
+  }
 }
