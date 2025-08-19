@@ -2,7 +2,7 @@ FROM ubuntu:24.04
 
 LABEL org.opencontainers.image.title="GoodMem Dev Environment" \
       org.opencontainers.image.description="Preinstalled GoodMem SDKs for Python, Java, Go, .NET, and JavaScript" \
-      org.opencontainers.image.version="1.0.0"
+      org.opencontainers.image.version="1.0.1"
 
 SHELL ["/bin/bash", "-c"]
 
@@ -35,31 +35,32 @@ RUN pip install --no-cache-dir --break-system-packages \
 # JavaScript SDK
 RUN npm install -g @pairsystems/goodmem-client
 
-# .NET SDK - cache via dummy project
+# .NET SDK - cache via dummy project (NuGet global cache warmed)
 RUN dotnet new console -n tempApp && \
     cd tempApp && \
-    dotnet add package Pairsystems.Goodmem.Client && \
+    dotnet add package Pairsystems.Goodmem.Client --version 1.0.2 && \
     dotnet restore && \
     cd .. && rm -rf tempApp
 
-# Go SDK - pre-cached using dummy import
+# Go SDK - pre-cache modules via dummy module (library, not a main package)
 ENV GOPATH=/home/vscode/go
 ENV PATH="$GOPATH/bin:$PATH"
 RUN mkdir -p /tmp/goodmem-go && cd /tmp/goodmem-go && \
-    go mod init goodmem-test && \
+    go mod init goodmem-sample && \
     go get github.com/PAIR-Systems-Inc/goodmem/clients/go@latest && \
     rm -rf /tmp/goodmem-go
 
-# Java SDK - preload via Maven
-RUN mvn dependency:get -Dartifact=ai.pairsys.goodmem:goodmem-client-java:1.0.2
+# Java SDK - preload into local Maven repo (pin to a real version; fall back if needed)
+# Prefer 1.0.2; if not yet replicated, fall back to 1.0.1
+RUN mvn -q -e dependency:get -Dartifact=ai.pairsys.goodmem:goodmem-client-java:1.0.2 || \
+    mvn -q -e dependency:get -Dartifact=ai.pairsys.goodmem:goodmem-client-java:1.0.1
 
-
-# Create dev user
+# Create dev user and workspace
 RUN useradd -m -s /bin/bash vscode && \
     echo "vscode ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/vscode-nopasswd && \
     chmod 0440 /etc/sudoers.d/vscode-nopasswd && \
     mkdir -p /home/vscode/.goodmem/data/database && \
-    chown -R vscode:vscode /home/vscode/.goodmem
+    chown -R vscode:vscode /home/vscode
 
 USER vscode
 WORKDIR /workspace
