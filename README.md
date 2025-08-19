@@ -1,33 +1,54 @@
-# Goodmem Devcontainer
+# GoodMem DevContainer
 
-The **Goodmem Devcontainer** is a complete, zero-configuration development environment designed to get you coding instantly. It packages all necessary SDKs, tools, and extensions into a single, pre-baked container, ensuring a consistent and efficient workflow for every developer.
+The **GoodMem DevContainer** is a pre-configured, zero-setup development environment designed to help you start building immediately. It includes all necessary SDKs, tools, and extensions in a single, consistent container image.
 
 ---
 
-### What's Included 
+## Features
 
-* **Languages:** Python 3.10 (with GoodMem & OpenAI SDKs), Java 17, .NET 8, Go 1.22, and Node.js 20 (with pnpm).
-* **VS Code Extensions:** Pre-installed extensions for all included languages, plus essential linters and formatters.
-* **Ready to Use:** Pre-configured shell access as the `vscode` user. All settings are baked into the image — no setup scripts needed.
+### Language Support
+- **Python 3.10** — Includes the GoodMem SDK and OpenAI integration
+- **Java 17**
+- **.NET 8**
+- **Go 1.22**
+- **Node.js 20** with `pnpm`
 
-### The Benefits 
+### Preinstalled Tooling
+- **Visual Studio Code Extensions** — Language servers, formatters, linters, and productivity tools for all supported languages
+- **Default User Configuration** — Shell access as the `vscode` user with all tools and settings preloaded
+- **Environment Variables and Volume Mounts** — Automatically configured `.env` file and persistent Docker volumes
 
-* **Zero Setup Time:** No need to manually install compilers, SDKs, linters, or extensions.
-* **Consistency:** Everyone on the team uses the exact same environment, eliminating "it works on my machine" problems.
-* **Seamless Upgrades:** Updating to a new version is as simple as changing a single line in a configuration file.
-* **Reliability:** All logic is pre-baked into the image, avoiding fragile post-creation scripts that can fail.
-* **Offline-Friendly:** Once the container image is pulled, you don’t need an internet connection to use the environment.
+---
+
+## Advantages
+
+- **Zero Setup Required**: No need to install compilers, SDKs, or extensions manually.
+- **Consistent Environments**: All developers use the exact same setup, eliminating “it works on my machine” issues.
+- **Easy Upgrades**: Switching to a newer version is as simple as updating a tag.
+- **Reliable Initialization**: The container includes everything baked in—no reliance on post-creation setup scripts.
+- **Works Offline**: Once the image is pulled, you can work without an internet connection.
 
 ---
 
 ## Getting Started
 
-Choose the path that best fits your needs.
+### Option 1: Launch a New Project (Recommended)
 
-#### Option 1: Start a New Project from Scratch (Recommended)
+To create a new development workspace using this container:
 
-This is the fastest way to get started. Use this if you're beginning a new project and want a clean, pre-configured workspace in the cloud.
+1. Click below to open a Codespace using the GoodMem template repository:  
+   [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=pair-systems-inc/goodmem-template-repository)
 
-**Simply click the button below:**
+2. After your Codespace launches, check the **bottom-left corner** of VS Code. Click on the `Codespaces: [name]` badge and choose **View Creation Logs**.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=pair-systems-inc/goodmem-template-repository)
+3. In the logs, locate output similar to the following (scroll if needed):
+
+   ```text
+   Connecting to gRPC API at https://localhost:9090
+   Using TLS with certificate verification disabled (insecure mode)
+   System initialized successfully
+   Root API key: gm_xxxxxxxxxxxxxxxxxxxxxxxx
+   User ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+4. Save the Root API Key — it will not be shown again. This is critical for authentication.
+
+5. Obtain your OpenAI API Key from the OpenAI dashboard and paste it into the .env file that was automatically generated in your workspace. Also paste the Root API key you saved in step 4
