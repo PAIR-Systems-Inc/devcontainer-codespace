@@ -52,3 +52,11 @@ To create a new development workspace using this container:
 4. Save the Root API Key — it will not be shown again. This is critical for authentication.
 
 5. Obtain your OpenAI API Key from the OpenAI dashboard and paste it into the .env file that was automatically generated in your workspace. Also paste the Root API key you saved in step 4
+
+6. To verify your setup, run one of the sample SDK tests:
+
+    Navigate to the src/test/ directory.
+
+    Choose a test that matches your preferred language (Python, Java, Go, etc.).
+
+    Run the test script and confirm that it connects successfully to the local GoodMem server and returns expected output.
