@@ -6,7 +6,7 @@ By now you should have installed GoodMem, either manually or through the devcont
 
 1. Click below to open a Codespace using the GoodMem template repository:
 
-[Open Codespace](https://github.com/codespaces/new?repo=PAIR-Systems-Inc/devcontainer-codespace)
+   [Open Codespace](https://github.com/codespaces/new?repo=PAIR-Systems-Inc/devcontainer-codespace)
 
 
 2. After your Codespace launches, check the **bottom-left corner** of VS Code. Click on the `Codespaces: [name]` badge and choose **View Creation Logs**.
