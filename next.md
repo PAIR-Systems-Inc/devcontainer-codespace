@@ -1,18 +1,18 @@
-# Next Steps 
+# Next Steps
 
-By now you should have installed goodmem, either manually or through the devcontainer. If you have not completed this step, then please go ahead and do so. Instructions for installing using a devcontainer are shown below. 
+By now you should have installed GoodMem, either manually or through the devcontainer. If you have not completed this step, please proceed with the installation.
 
+### Devcontainer Setup (Skip if you installed GoodMem manually)
 
-### Option 1: Launch a New Project (Recommended)
+1. Click below to open a Codespace using the GoodMem template repository:
 
-To create a new development workspace using this container:
-
-1. Click below to open a Codespace using the GoodMem template repository:  
    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=pair-systems-inc/goodmem-template-repository)
 
 2. After your Codespace launches, check the **bottom-left corner** of VS Code. Click on the `Codespaces: [name]` badge and choose **View Creation Logs**.
 
-3. In the logs, locate output similar to the following:
+### Configuration Steps
+
+1. In the logs, locate output similar to the following:
 
    ```text
    Connecting to gRPC API at https://localhost:9090
@@ -22,18 +22,15 @@ To create a new development workspace using this container:
    User ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
    ```
 
-4. **Save the Root API Key** — it will not be shown again. This is critical for authentication.
+2. **CRITICAL: SAVE THE ROOT API KEY IMMEDIATELY**
+   
+   **THE ROOT API KEY WILL NOT BE SHOWN AGAIN AND CANNOT BE RECOVERED**
+   
+   Copy and paste the Root API key (`gm_xxxxxxxxxxxxxxxxxxxxxxxx`) from the logs above and store it in a secure location RIGHT NOW. Without this key, you will need to restart the entire setup process. This is absolutely essential for authentication and all subsequent operations.
 
-5. Obtain your **OpenAI API Key** from the OpenAI dashboard and paste it into the `.env` file that was automatically generated in your workspace. Also paste the Root API key from step 4.  
+3. **Obtain your OpenAI API Key** from the [OpenAI dashboard](https://platform.openai.com/api-keys) and keep it ready for the next step.
 
-   Example `.env` file:
-
-   ```env
-   OPENAI_API_KEY=sk-...
-   ADD_API_KEY=gm_xxxxxxxxxxxxxxxxxxxxxxxx
-   ```
-
-6. **Create an embedder** (must be created before a space):
+4. **Create an embedder** (must be created before a space):
 
    ```bash
    goodmem embedder create \
@@ -42,12 +39,12 @@ To create a new development workspace using this container:
      --endpoint-url "https://api.openai.com/v1" \
      --model-identifier "text-embedding-3-small" \
      --dimensionality 1536 \
-     --credentials "YOUR_OPENAI_API_KEY_FROM_STEP_5"
+     --credentials "YOUR_OPENAI_API_KEY_FROM_STEP_3"
    ```
-The command should output:
+   The command should output:
 
    > Embedder created successfully!\
-   >
+   >\
    > ID:               xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
    > Display Name:     OpenAI Small Embedder\
    > Owner:            xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
@@ -55,93 +52,104 @@ The command should output:
    > Distribution:     DENSE\
    > Endpoint URL:     https://api.openai.com/v1\
    > API Path:         /embeddings\
-   > Model:            text-embedding-3-s\
-   
-**SAVE THE ID**
+   > Model:            text-embedding-3-small
 
+   **SAVE THE ID**
 
-7. The command will output an **Embedder ID**. **Save it** — you'll need it for the next step.
-
-8. **Create a space** linked to that embedder:
+5. **Create a space** linked to that embedder:
 
    ```bash
    goodmem space create \
      --name "My OpenAI Small Space" \
-     --embedder-id <YOUR_EMBEDDER_ID_FROM_STEP_7>
+     --embedder-id <YOUR_EMBEDDER_ID_FROM_STEP_4>
    ```
 
-The command should output:
+   The command should output:
 
    > Space created successfully!\
-   >
+   >\
    > ID:         xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
    > Name:       My OpenAI Small Space\
    > Owner:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
    > Created by: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
    > Created at: 2025-08-20T21:08:20Z\
    > Public:     false\
-   > Embedder:   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (weight: 1.0)\
+   > Embedder:   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (weight: 1.0)
 
-**SAVE THE ID**
+   **SAVE THE ID**
 
-9. **Create an LLM**: 
+6. **Create an LLM**:
 
-```bash
-goodmem llm create \
-  --display-name "My GPT-4" \
-  --provider-type OPENAI \
-  --endpoint-url "https://api.openai.com/v1" \
-  --model-identifier "gpt-4o" \
-```
-The command should output:
+   ```bash
+   goodmem llm create \
+     --display-name "My GPT-4" \
+     --provider-type OPENAI \
+     --endpoint-url "https://api.openai.com/v1" \
+     --model-identifier "gpt-4o"
+   ```
+
+   The command should output:
 
    > LLM created successfully!\
-   > **ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx**\
+   > ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
    > Name: My GPT-4\
    > Provider: LLM_PROVIDER_TYPE_OPENAI\
    > Model: gpt-4o
 
-**SAVE THE ID**
+   **SAVE THE ID**
 
-12. 
+### Testing the CLI 
 
-***The next major step is to acutally test out the CLI. To do so we will first push a pdf and store it into the memory. After that we will run some queries. Follow the direciotns below: 
+The next major step is to actually test the CLI. To do this, we will first upload a PDF and store it in memory. After that, we will run some queries. Follow the directions below: 
 
-1. **Begin by creating a memory. In this case I will be using this PDF which I reccomend you use as well to test.
-      https://sleepresearchsociety.org/wp-content/uploads/2021/05/Why_Sleep_Is_Important_For_Optimizing_Learning_And_Memory.pdf
+1. **Begin by creating a memory.** In this case, I will be using this PDF, which I recommend you use as well for testing:
 
-   Then go ahead and run this command:
+   [Why Sleep Is Important For Optimizing Learning And Memory](https://sleepresearchsociety.org/wp-content/uploads/2021/05/Why_Sleep_Is_Important_For_Optimizing_Learning_And_Memory.pdf)
+
+   Then run this command:
 
    ```bash
    goodmem memory create \
-   --space-id <YOUR_SPACE_ID_FROM_STEP_8> \ 
-   --file "path to where you downloaded the pdf" \
-   --content-type "application/pdf"
+     --space-id <YOUR_SPACE_ID_FROM_STEP_5> \
+     --file "path to where you downloaded the pdf" \
+     --content-type "application/pdf"
    ```
 
    It should output:
-      > Memory created successfully!\
-      >
-      > ID:            xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
-      > Space ID:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
-      > Content Type:  application/pdf\
-      > Status:        PENDING\
-      > Created by:    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
-      > Created at:    2025-08-20T21:2
 
-   **SAVE THE ID (not space ID since you already have that)**
+   > Memory created successfully!\
+   >\
+   > ID:            xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Space ID:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Content Type:  application/pdf\
+   > Status:        PENDING\
+   > Created by:    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Created at:    2025-08-20T21:20:00Z
 
-2. To run a query, run this command:
+   **SAVE THE ID** (not the space ID since you already have that)
 
-```bash
-   goodmem memory retrieve "what is it about sleep that is so important?" --space-id 7dd2cf07-8d5c-43ab-ba69-d1f97ba18cbf
-```
+2. To run a query, execute this command:
 
+   ```bash
+   goodmem memory retrieve \
+     "what is it about sleep that is so important?" \
+     --space-id <YOUR_SPACE_ID_FROM_STEP_5>
+   ```
 
+### Next Step: Test Your SDK (for devcontainer)
 
-NEXT STEP Test your SDK (for devcontainer)
+**Setup your environment**:
 
-**Verify your setup**:  
-   - Navigate to the `src/test/` directory  
-   - Choose a test in your preferred language (Python, Java, Go, etc.)  
-   - Run it and confirm that it connects successfully to the local GoodMem server and returns the expected output
+1. Obtain your **OpenAI API Key** from the OpenAI dashboard and paste it into the `.env` file that was automatically generated in your workspace. Also paste the Root API key from step 4.
+
+   Example `.env` file:
+
+   ```env
+   OPENAI_API_KEY=sk-...
+   ADD_API_KEY=gm_xxxxxxxxxxxxxxxxxxxxxxxx
+   ```
+
+**Verify your setup**:
+- Navigate to the `src/test/` directory
+- Choose a test in your preferred language (Python, Java, Go, etc.)
+- Run it and confirm that it connects successfully to the local GoodMem server and returns the expected output
