@@ -1,36 +1,7 @@
-# GoodMem DevContainer
+# Next Steps 
 
-The **GoodMem DevContainer** is a pre-configured, zero-setup development environment designed to help you start building immediately. It includes all necessary SDKs, tools, and extensions in a single, consistent container image.
+By now you should have installed goodmem, either manually or through the devcontainer. If you have not completed this step, then please go ahead and do so. Instructions for installing using a devcontainer are shown below. 
 
----
-
-## Features
-
-### Language Support
-- **Python 3.10** — includes the GoodMem SDK and OpenAI integration  
-- **Java 17**  
-- **.NET 8**  
-- **Go 1.22**  
-- **Node.js 20** with `pnpm`
-
-### Preinstalled Tooling
-- **Visual Studio Code Extensions** — language servers, formatters, linters, and productivity tools for all supported languages  
-- **Default User Configuration** — shell access as the `vscode` user with all tools and settings preloaded  
-- **Environment Variables and Volume Mounts** — automatically configured `.env` file and persistent Docker volumes  
-
----
-
-## Advantages
-
-- **Zero Setup Required**: no need to install compilers, SDKs, or extensions manually  
-- **Consistent Environments**: all developers use the exact same setup, eliminating "it works on my machine" issues  
-- **Easy Upgrades**: switching to a newer version is as simple as updating a tag  
-- **Reliable Initialization**: everything is baked into the image—no fragile post-creation scripts  
-- **Works Offline**: once the image is pulled, you can work without an internet connection  
-
----
-
-## Getting Started
 
 ### Option 1: Launch a New Project (Recommended)
 
@@ -73,6 +44,21 @@ To create a new development workspace using this container:
      --dimensionality 1536 \
      --credentials "YOUR_OPENAI_API_KEY_FROM_STEP_5"
    ```
+The command should output:
+
+   > Embedder created successfully!\
+   >
+   > ID:               xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Display Name:     OpenAI Small Embedder\
+   > Owner:            xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Provider Type:    OPENAI\
+   > Distribution:     DENSE\
+   > Endpoint URL:     https://api.openai.com/v1\
+   > API Path:         /embeddings\
+   > Model:            text-embedding-3-s\
+   
+**SAVE THE ID**
+
 
 7. The command will output an **Embedder ID**. **Save it** — you'll need it for the next step.
 
@@ -84,7 +70,78 @@ To create a new development workspace using this container:
      --embedder-id <YOUR_EMBEDDER_ID_FROM_STEP_7>
    ```
 
-9. **Verify your setup**:  
+The command should output:
+
+   > Space created successfully!\
+   >
+   > ID:         xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Name:       My OpenAI Small Space\
+   > Owner:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Created by: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Created at: 2025-08-20T21:08:20Z\
+   > Public:     false\
+   > Embedder:   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (weight: 1.0)\
+
+**SAVE THE ID**
+
+9. **Create an LLM**: 
+
+```bash
+goodmem llm create \
+  --display-name "My GPT-4" \
+  --provider-type OPENAI \
+  --endpoint-url "https://api.openai.com/v1" \
+  --model-identifier "gpt-4o" \
+```
+The command should output:
+
+   > LLM created successfully!\
+   > **ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx**\
+   > Name: My GPT-4\
+   > Provider: LLM_PROVIDER_TYPE_OPENAI\
+   > Model: gpt-4o
+
+**SAVE THE ID**
+
+12. 
+
+***The next major step is to acutally test out the CLI. To do so we will first push a pdf and store it into the memory. After that we will run some queries. Follow the direciotns below: 
+
+1. **Begin by creating a memory. In this case I will be using this PDF which I reccomend you use as well to test.
+      https://sleepresearchsociety.org/wp-content/uploads/2021/05/Why_Sleep_Is_Important_For_Optimizing_Learning_And_Memory.pdf
+
+   Then go ahead and run this command:
+
+   ```bash
+   goodmem memory create \
+   --space-id <YOUR_SPACE_ID_FROM_STEP_8> \ 
+   --file "path to where you downloaded the pdf" \
+   --content-type "application/pdf"
+   ```
+
+   It should output:
+      > Memory created successfully!\
+      >
+      > ID:            xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+      > Space ID:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+      > Content Type:  application/pdf\
+      > Status:        PENDING\
+      > Created by:    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+      > Created at:    2025-08-20T21:2
+
+   **SAVE THE ID (not space ID since you already have that)**
+
+2. To run a query, run this command:
+
+```bash
+   goodmem memory retrieve "what is it about sleep that is so important?" --space-id 7dd2cf07-8d5c-43ab-ba69-d1f97ba18cbf
+```
+
+
+
+NEXT STEP Test your SDK (for devcontainer)
+
+**Verify your setup**:  
    - Navigate to the `src/test/` directory  
    - Choose a test in your preferred language (Python, Java, Go, etc.)  
    - Run it and confirm that it connects successfully to the local GoodMem server and returns the expected output
