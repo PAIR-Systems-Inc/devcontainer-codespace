@@ -1,5 +1,6 @@
 {
   "name": "GoodMem Dev Container",
+  "build": "Dockerfile", 
   "postCreateCommand": "curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
