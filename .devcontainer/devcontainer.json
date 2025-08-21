@@ -1,7 +1,12 @@
 {
   "name": "GoodMem Dev Container",
-  "build": "Dockerfile", 
-  "postCreateCommand": "curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  // This command now runs all steps in order
+  "postCreateCommand": "curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration && npm install && if [ ! -f .env ]; then cp .env.example .env; fi",
+
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
@@ -9,7 +14,8 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-vscode.vscode-docker"
+        "ms-vscode.vscode-docker",
+        "dbaeumer.vscode-eslint"
       ]
     }
   }
