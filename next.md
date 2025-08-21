@@ -103,7 +103,8 @@ The next major step is to upload content into memory so it can  be queried. To d
 
 1. **Begin by creating a memory.** In this case, I will be using this PDF, which I recommend you use as well for testing:
 
-   [AN EXCELLENT STUDY OF SOCIAL MEDIA AND ITS POSITIVE AND NEGATIVE EFFECTS ON HUMAN BEING’S MENTAL HEALTH]([https://sleepresearchsociety.org/wp-content/uploads/2021/05/Why_Sleep_Is_Important_For_Optimizing_Learning_And_Memory.pdf](https://dr.lib.iastate.edu/server/api/core/bitstreams/8d3ccb03-cbc4-4b8a-b452-0ebccf0dde55/content))
+   [An Excellent Study of Social Media and Its Positive and Negative Effects on Human Being’s Mental Health](https://dr.lib.iastate.edu/server/api/core/bitstreams/8d3ccb03-cbc4-4b8a-b452-0ebccf0dde55/content)
+
 
    Then run this command:
 
