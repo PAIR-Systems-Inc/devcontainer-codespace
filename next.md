@@ -103,7 +103,7 @@ The next major step is to upload content into memory so it can  be queried. To d
 
 1. **Begin by creating a memory.** In this case, I will be using this PDF, which I recommend you use as well for testing:
 
-   [Why Sleep Is Important For Optimizing Learning And Memory](https://sleepresearchsociety.org/wp-content/uploads/2021/05/Why_Sleep_Is_Important_For_Optimizing_Learning_And_Memory.pdf)
+   [AN EXCELLENT STUDY OF SOCIAL MEDIA AND ITS POSITIVE AND NEGATIVE EFFECTS ON HUMAN BEING’S MENTAL HEALTH]([https://sleepresearchsociety.org/wp-content/uploads/2021/05/Why_Sleep_Is_Important_For_Optimizing_Learning_And_Memory.pdf](https://dr.lib.iastate.edu/server/api/core/bitstreams/8d3ccb03-cbc4-4b8a-b452-0ebccf0dde55/content))
 
    Then run this command:
 
@@ -132,7 +132,7 @@ The next major step is to upload content into memory so it can  be queried. To d
    **Non-interactive mode:**  
       ```bash
       goodmem memory retrieve \
-        "what is it about sleep that is so important?" \
+        "what are the top three negative affects of social media?" \
         --space-id <YOUR_SPACE_ID_FROM_STEP_5>
       ```
 
@@ -141,7 +141,7 @@ The next major step is to upload content into memory so it can  be queried. To d
    ```bash
       goodmem memory retrieve \
      --space-id  <YOUR_SPACE_ID_FROM_STEP_5>\
-     --post-processor-interactive "What is it about sleep that is so important?"
+     --post-processor-interactive "what are the top three negative affects of social media?"
    ```
 
 
