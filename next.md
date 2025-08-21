@@ -23,12 +23,13 @@ By now you should have installed GoodMem, either manually or through the devcont
    User ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
    ```
 
-2. **Save Your Root API Key**
-     The Root API Key `(gm_xxxxxxxxxxxxxxxxxxxxxxxx)` is shown only once. It’s best to copy and store it now—retrieval later is possible but less convenient.
+2. **Save Your Root API Key**\
+   
+     The Root API Key `(gm_xxxxxxxxxxxxxxxxxxxxxxxx)` is shown only once. It’s best to copy and store it now.
 
-3. **Obtain your OpenAI API Key** from the [OpenAI dashboard](https://platform.openai.com/api-keys) and keep it ready for the next step.
+4. **Obtain your OpenAI API Key** from the [OpenAI dashboard](https://platform.openai.com/api-keys) and keep it ready for the next step.
 
-4. **Create an embedder** (must be created before a space):
+5. **Create an embedder** (must be created before a space):
 
    ```bash
    goodmem embedder create \
@@ -54,7 +55,7 @@ By now you should have installed GoodMem, either manually or through the devcont
 
    **SAVE THE ID**
 
-5. **Create a space** linked to that embedder:
+6. **Create a space** linked to that embedder:
 
    ```bash
    goodmem space create \
@@ -76,7 +77,7 @@ By now you should have installed GoodMem, either manually or through the devcont
 
    **SAVE THE ID**
 
-6. **Create an LLM**:
+7. **Create an LLM**:
 
    ```bash
    goodmem llm create \
