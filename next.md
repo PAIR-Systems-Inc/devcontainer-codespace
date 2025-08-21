@@ -97,9 +97,9 @@ By now you should have installed GoodMem, either manually or through the devcont
 
    **SAVE THE ID**
 
-### Testing the CLI 
+### Testing the Queries
 
-The next major step is to actually test the CLI. To do this, we will first upload a PDF and store it in memory. After that, we will run some queries. Follow the directions below: 
+The next major step is to upload content into memory so it can  be queried. To do this, we will first upload a PDF and store it in memory. After that, we will run some queries. Follow the directions below: 
 
 1. **Begin by creating a memory.** In this case, I will be using this PDF, which I recommend you use as well for testing:
 
