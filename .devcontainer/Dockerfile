@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libffi-dev libssl-dev libpq-dev cargo \
  && rm -rf /var/lib/apt/lists/*
 
-
  # Install Node.js 20 (via NodeSource)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
@@ -38,16 +37,7 @@ RUN useradd -m -s /bin/bash vscode && \
     mkdir -p /home/vscode/.goodmem/data/database && \
     chown -R vscode:vscode /home/vscode/.goodmem
 
-# Create prefilled JS test project (for dev/demo use)
-RUN mkdir -p /home/vscode/goodmem-js-test && \
-    cd /home/vscode/goodmem-js-test && \
-    npm init -y && \
-    npm install dotenv && \
-    npm install --save @pairsystems/goodmem-client && \
-    echo "ADD_API_KEY=" > .env && \
-    echo 'import { Client } from "@pairsystems/goodmem-client";\nimport "dotenv/config";\n\nconst client = new Client("http://localhost:8080");\nclient.setApiKey(process.env.ADD_API_KEY || "your-api-key");\n\nasync function run() {\n  try {\n    const apiKeysApi = client.getApiKeysApi();\n    const response = await apiKeysApi.listApiKeys();\n    console.log("API Keys:", response);\n  } catch (error) {\n    console.error("Error:", error?.response?.data || error);\n  }\n}\n\nrun();' > test.js && \
-    chown -R vscode:vscode /home/vscode/goodmem-js-test
-
+RUN npm init -y && npm install goodmem
 
 USER vscode
 WORKDIR /workspace
