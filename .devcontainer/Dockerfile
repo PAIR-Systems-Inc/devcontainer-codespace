@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.title="GoodMem Dev Environment" \
 
 SHELL ["/bin/bash", "-c"]
 
-# Install base dependencies
+# Base deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget git unzip gnupg ca-certificates software-properties-common \
     build-essential apt-transport-https sudo \
@@ -14,34 +14,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libffi-dev libssl-dev libpq-dev cargo \
  && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js 20 (via NodeSource)
+# Node.js 20
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# Install .NET SDK 9.0
+# .NET SDK 8.0 (update to 9.0 if desired by changing the package name)
 RUN wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
-    sudo dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb && \
-    apt-get update && \
-    apt-get install -y dotnet-sdk-8.0
+    dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb && \
+    apt-get update && apt-get install -y dotnet-sdk-8.0 && \
+    rm -rf /var/lib/apt/lists/*
 
-
-# Set python defaults
+# Python defaults
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
-# Python SDKs installed here (system-level, available everywhere)
+# Global Python deps
 RUN pip install --no-cache-dir --break-system-packages \
-      goodmem_client \
-      openai \
-      requests \
-      python-dotenv
+      goodmem_client openai requests python-dotenv
 
-# Create vscode user
+# Dev user
 RUN useradd -m -s /bin/bash vscode && \
     echo "vscode ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/vscode-nopasswd && \
     chmod 0440 /etc/sudoers.d/vscode-nopasswd && \
@@ -49,10 +41,6 @@ RUN useradd -m -s /bin/bash vscode && \
     chown -R vscode:vscode /home/vscode/.goodmem
 
 USER vscode
-WORKDIR /workspace
 
-# --- Setup .NET GoodMemApp project inside workspace ---
-RUN dotnet new console -n GoodMemApp && \
-    cd GoodMemApp && \
-    dotnet add package Pairsystems.Goodmem.Client && \
-    dotnet build
+# Use Codespaces default; the repo will be mounted at /workspaces/<repo>
+WORKDIR /workspaces
