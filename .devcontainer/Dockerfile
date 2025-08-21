@@ -1,11 +1,12 @@
 FROM ubuntu:24.04
 
 LABEL org.opencontainers.image.title="GoodMem Dev Environment" \
-      org.opencontainers.image.description="Minimal setup for developing with GoodMem APIs (Python + JS)" \
-      org.opencontainers.image.version="1.0.0"
+      org.opencontainers.image.description="Minimal setup for developing with GoodMem APIs (Python + JS + .NET)" \
+      org.opencontainers.image.version="1.1.0"
 
 SHELL ["/bin/bash", "-c"]
 
+# Install base dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget git unzip gnupg ca-certificates software-properties-common \
     build-essential apt-transport-https sudo \
@@ -18,6 +19,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     rm -rf /var/lib/apt/lists/*
 
+# Install .NET SDK 9.0
+RUN wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+    sudo dpkg -i packages-microsoft-prod.deb && \
+    rm packages-microsoft-prod.deb && \
+    apt-get update && \
+    apt-get install -y dotnet-sdk-9.0
+
+# Set python defaults
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
@@ -40,3 +49,9 @@ RUN useradd -m -s /bin/bash vscode && \
 
 USER vscode
 WORKDIR /workspace
+
+# --- Setup .NET GoodMemApp project inside workspace ---
+RUN dotnet new console -n GoodMemApp && \
+    cd GoodMemApp && \
+    dotnet add package Pairsystems.Goodmem.Client && \
+    dotnet build
