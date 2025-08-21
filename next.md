@@ -127,15 +127,16 @@ The next major step is to upload content into memory so it can  be queried. To d
 
    **SAVE THE ID** (not the space ID since you already have that)
 
-2. To run a query you have two options. The non interactive and the interactive mode. 
-   Run this for non-interactive
+2. To run a query, you have two options: non-interactive mode and interactive mode.
+
+   **Non-interactive mode:**  
       ```bash
       goodmem memory retrieve \
         "what is it about sleep that is so important?" \
         --space-id <YOUR_SPACE_ID_FROM_STEP_5>
       ```
 
-   Run this for interactive. It makes it much easier to retrreive reuslts. 
+   **Interactive mode (easier to retrieve results):**
 
    ```bash
       goodmem memory retrieve \
