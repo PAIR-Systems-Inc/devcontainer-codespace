@@ -5,8 +5,8 @@
   },
 
   // This command now runs all steps in order
-  "postCreateCommand": "curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration && npm install && if [ ! -f .env ]; then cp .env.example .env; fi",
-
+  "postCreateCommand": "npm install && if [ ! -f .env ]; then cp .env.example .env; fi",
+  "postAttachCommand": "curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
