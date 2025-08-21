@@ -1,7 +1,7 @@
 {
   "name": "GoodMem Dev Container",
   "build": {
-    "dockerfile": "/Dockerfile"
+    "dockerfile": "devcontainer-codespace/Dockerfile"
   },
   "postCreateCommand": "npm install && curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration",
   "features": {
