@@ -24,7 +24,8 @@ RUN wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-p
     sudo dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb && \
     apt-get update && \
-    apt-get install -y dotnet-sdk-9.0
+    apt-get install -y dotnet-sdk-8.0
+
 
 # Set python defaults
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
