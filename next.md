@@ -23,11 +23,8 @@ By now you should have installed GoodMem, either manually or through the devcont
    User ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
    ```
 
-2. **CRITICAL: SAVE THE ROOT API KEY IMMEDIATELY**
-   
-   **THE ROOT API KEY WILL NOT BE SHOWN AGAIN AND CANNOT BE RECOVERED**
-   
-   Copy and paste the Root API key (`gm_xxxxxxxxxxxxxxxxxxxxxxxx`) from the logs above and store it in a secure location RIGHT NOW. Without this key, you will need to restart the entire setup process. This is absolutely essential for authentication and all subsequent operations.
+2. **Save Your Root API Key**
+     The Root API Key `(gm_xxxxxxxxxxxxxxxxxxxxxxxx)` is shown only once. It’s best to copy and store it now—retrieval later is possible but less convenient.
 
 3. **Obtain your OpenAI API Key** from the [OpenAI dashboard](https://platform.openai.com/api-keys) and keep it ready for the next step.
 
