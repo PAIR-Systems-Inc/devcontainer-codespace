@@ -76,8 +76,7 @@ if command -v javac >/dev/null 2>&1; then
     mkdir -p "$JAVA_APP_DIR"
     cd "$JAVA_APP_DIR"
 
-    # Init Gradle project with wrapper
-    yes 1 | gradle -q init \
+    yes | gradle -q init \
       --type java-application \
       --dsl kotlin \
       --test-framework junit \
