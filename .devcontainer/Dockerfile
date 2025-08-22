@@ -50,14 +50,12 @@ ENV PATH="$JAVA_HOME/bin:${PATH}"
 RUN java -version && javac -version
 
 # ---- Gradle (official binary) ----
-ARG GRADLE_VERSION=8.9
-ARG GRADLE_SHA256=5a3f7c46d90513f28ed312e82c1948d45f407b7a2a3dcb17b3d2610fcb8e5b25
-RUN curl -fsSL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o /tmp/gradle.zip \
- && echo "${GRADLE_SHA256}  /tmp/gradle.zip" | sha256sum -c - \
+RUN curl -fsSL https://services.gradle.org/distributions/gradle-8.9-bin.zip -o /tmp/gradle.zip \
  && unzip -q /tmp/gradle.zip -d /opt \
- && ln -s /opt/gradle-${GRADLE_VERSION} /opt/gradle \
+ && ln -s /opt/gradle-8.9 /opt/gradle \
  && rm -f /tmp/gradle.zip
 ENV PATH="/opt/gradle/bin:${PATH}"
+
 
 # quick sanity
 RUN gradle -v
