@@ -84,6 +84,8 @@ if command -v javac >/dev/null 2>&1; then
     --project-name "$JAVA_APP_DIR" \
     --package com.pairsystems.goodmem.sample \
     --java-version 21
+    --project-structure single
+
 
 
     # Inject GoodMem dependency
