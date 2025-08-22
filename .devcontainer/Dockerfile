@@ -25,6 +25,18 @@ RUN wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-p
     apt-get update && apt-get install -y dotnet-sdk-8.0 && \
     rm -rf /var/lib/apt/lists/*
 
+#Go 
+ARG GO_VERSION=1.22.5
+RUN curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o /tmp/go.tgz \
+ && rm -rf /usr/local/go \
+ && tar -C /usr/local -xzf /tmp/go.tgz \
+ && rm /tmp/go.tgz
+ENV GOROOT=/usr/local/go
+ENV GOPATH=/home/vscode/go
+ENV PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+# quick sanity
+RUN go version
+
 # Python defaults
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
