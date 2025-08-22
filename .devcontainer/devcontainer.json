@@ -2,7 +2,7 @@
   "name": "GoodMem Dev Container",
   "build": { "dockerfile": "Dockerfile" },
 
-  "postCreateCommand": "bash setup.sh",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
   "postAttachCommand": "curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration",
 
   "features": {
