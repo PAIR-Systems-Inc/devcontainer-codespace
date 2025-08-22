@@ -2,7 +2,7 @@
   "name": "GoodMem Dev Container",
   "build": { "dockerfile": "Dockerfile" },
 
-  "postCreateCommand": "set -e; if [ ! -d GoodMemApp ]; then dotnet new console -n GoodMemApp; (cd GoodMemApp && dotnet add package Pairsystems.Goodmem.Client); fi; cd GoodMemApp && dotnet restore && dotnet build",
+  "postCreateCommand": "./.devcontainer/setup.sh",
   "postAttachCommand": "curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration",
 
   "features": {
