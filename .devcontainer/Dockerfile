@@ -37,6 +37,31 @@ ENV PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 # quick sanity
 RUN go version
 
+#Java
+
+# ---- Java (OpenJDK 21) ----
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      openjdk-21-jdk \
+    && rm -rf /var/lib/apt/lists/*
+ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+ENV PATH="$JAVA_HOME/bin:${PATH}"
+
+# quick sanity
+RUN java -version && javac -version
+
+# ---- Gradle (official binary) ----
+ARG GRADLE_VERSION=8.9
+ARG GRADLE_SHA256=ee155cda7f9f09f3f2b725baedcdd2f12fefb1bbd3e3ce9a5bb5e63e6c6d981b
+RUN curl -fsSL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o /tmp/gradle.zip \
+ && echo "${GRADLE_SHA256}  /tmp/gradle.zip" | sha256sum -c - \
+ && unzip -q /tmp/gradle.zip -d /opt \
+ && ln -s /opt/gradle-${GRADLE_VERSION} /opt/gradle \
+ && rm -f /tmp/gradle.zip
+ENV PATH="/opt/gradle/bin:${PATH}"
+
+# quick sanity
+RUN gradle -v
+
 # Python defaults
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
