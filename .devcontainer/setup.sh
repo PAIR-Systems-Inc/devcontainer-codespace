@@ -76,14 +76,14 @@ if command -v javac >/dev/null 2>&1; then
     mkdir -p "$JAVA_APP_DIR"
     cd "$JAVA_APP_DIR"
 
-    # Change it to look like this
-    gradle -q init \
+    printf "1\n" | gradle -q init \
       --type java-application \
       --dsl kotlin \
       --test-framework junit \
       --project-name "$JAVA_APP_DIR" \
       --package com.pairsystems.goodmem.sample \
       --java-version 21
+
 
 
 
