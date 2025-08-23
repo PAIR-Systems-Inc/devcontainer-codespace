@@ -16,18 +16,8 @@ The **GoodMem DevContainer** is a pre-configured, zero-setup development environ
 ### Preinstalled Tooling
 - **Visual Studio Code Extensions** — language servers, formatters, linters, and productivity tools for all supported languages  
 - **Default User Configuration** — shell access as the `vscode` user with all tools and settings preloaded  
-- **Environment Variables and Volume Mounts** — automatically configured `.env` file and persistent Docker volumes  
-
----
-
-## Advantages
-
-- **Zero Setup Required**: no need to install compilers, SDKs, or extensions manually  
-- **Consistent Environments**: all developers use the exact same setup, eliminating "it works on my machine" issues  
-- **Easy Upgrades**: switching to a newer version is as simple as updating a tag  
-- **Reliable Initialization**: everything is baked into the image—no fragile post-creation scripts  
-- **Works Offline**: once the image is pulled, you can work without an internet connection  
-
+- **Environment Variables and Volume Mounts** — automatically configured `.env` file and persistent Docker volumes
+- 
 ---
 
 # Next Steps
