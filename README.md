@@ -32,18 +32,7 @@ The **GoodMem DevContainer** is a pre-configured, zero-setup development environ
 
 # Next Steps
 
-By now you should have installed GoodMem, either manually or through the devcontainer. If you have not completed this step, please proceed with the installation.
-
-### Devcontainer Setup (Skip if you installed GoodMem manually)
-
-1. Click below to open a Codespace using the GoodMem template repository:
-
-   [Open Codespace](https://github.com/codespaces/new?repo=PAIR-Systems-Inc/devcontainer-codespace)
-
-
-2. After your Codespace launches, check the **bottom-left corner** of VS Code. Click on the `Codespaces: [name]` badge and choose **View Creation Logs**.
-
-### Configuration Steps
+By now you should have installed GoodMem through the devcontainer. Below is a tutorial on how to use the Goodmem CLI. 
 
 1. In the logs, locate output similar to the following:
 
