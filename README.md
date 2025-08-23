@@ -30,18 +30,22 @@ The **GoodMem DevContainer** is a pre-configured, zero-setup development environ
 
 ---
 
-## Getting Started
+# Next Steps
 
-### Option 1: Launch a New Project (Recommended)
+By now you should have installed GoodMem, either manually or through the devcontainer. If you have not completed this step, please proceed with the installation.
 
-To create a new development workspace using this container:
+### Devcontainer Setup (Skip if you installed GoodMem manually)
 
-1. Click below to open a Codespace using the GoodMem template repository:  
-   [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=pair-systems-inc/goodmem-template-repository)
+1. Click below to open a Codespace using the GoodMem template repository:
+
+   [Open Codespace](https://github.com/codespaces/new?repo=PAIR-Systems-Inc/devcontainer-codespace)
+
 
 2. After your Codespace launches, check the **bottom-left corner** of VS Code. Click on the `Codespaces: [name]` badge and choose **View Creation Logs**.
 
-3. In the logs, locate output similar to the following:
+### Configuration Steps
+
+1. In the logs, locate output similar to the following:
 
    ```text
    Connecting to gRPC API at https://localhost:9090
@@ -51,18 +55,13 @@ To create a new development workspace using this container:
    User ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
    ```
 
-4. **Save the Root API Key** — it will not be shown again. This is critical for authentication.
+2. **Save Your Root API Key**\
+   
+     The Root API Key `(gm_xxxxxxxxxxxxxxxxxxxxxxxx)` is shown only once. It’s best to copy and store it now.
 
-5. Obtain your **OpenAI API Key** from the OpenAI dashboard and paste it into the `.env` file that was automatically generated in your workspace. Also paste the Root API key from step 4.  
+4. **Obtain your OpenAI API Key** from the [OpenAI dashboard](https://platform.openai.com/api-keys) and keep it ready for the next step.
 
-   Example `.env` file:
-
-   ```env
-   OPENAI_API_KEY=sk-...
-   ADD_API_KEY=gm_xxxxxxxxxxxxxxxxxxxxxxxx
-   ```
-
-6. **Create an embedder** (must be created before a space):
+5. **Create an embedder** (must be created before a space):
 
    ```bash
    goodmem embedder create \
@@ -71,20 +70,109 @@ To create a new development workspace using this container:
      --endpoint-url "https://api.openai.com/v1" \
      --model-identifier "text-embedding-3-small" \
      --dimensionality 1536 \
-     --credentials "YOUR_OPENAI_API_KEY_FROM_STEP_5"
+     --credentials "YOUR_OPENAI_API_KEY_FROM_STEP_3"
    ```
+   The command should output:
 
-7. The command will output an **Embedder ID**. **Save it** — you'll need it for the next step.
+   > Embedder created successfully!\
+   >\
+   > ID:               xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Display Name:     OpenAI Small Embedder\
+   > Owner:            xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Provider Type:    OPENAI\
+   > Distribution:     DENSE\
+   > Endpoint URL:     https://api.openai.com/v1\
+   > API Path:         /embeddings\
+   > Model:            text-embedding-3-small
 
-8. **Create a space** linked to that embedder:
+   **SAVE THE ID**
+
+6. **Create a space** linked to that embedder:
 
    ```bash
    goodmem space create \
      --name "My OpenAI Small Space" \
-     --embedder-id <YOUR_EMBEDDER_ID_FROM_STEP_7>
+     --embedder-id <YOUR_EMBEDDER_ID_FROM_STEP_4>
    ```
 
-9. **Verify your setup**:  
-   - Navigate to the `src/test/` directory  
-   - Choose a test in your preferred language (Python, Java, Go, etc.)  
-   - Run it and confirm that it connects successfully to the local GoodMem server and returns the expected output
+   The command should output:
+
+   > Space created successfully!\
+   >\
+   > ID:         xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Name:       My OpenAI Small Space\
+   > Owner:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Created by: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Created at: 2025-08-20T21:08:20Z\
+   > Public:     false\
+   > Embedder:   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (weight: 1.0)
+
+   **SAVE THE ID**
+
+7. **Create an LLM**:
+
+   ```bash
+   goodmem llm create \
+     --display-name "My GPT-4" \
+     --provider-type OPENAI \
+     --endpoint-url "https://api.openai.com/v1" \
+     --model-identifier "gpt-4o"
+   ```
+
+   The command should output:
+
+   > LLM created successfully!\
+   > ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Name: My GPT-4\
+   > Provider: LLM_PROVIDER_TYPE_OPENAI\
+   > Model: gpt-4o
+
+   **SAVE THE ID**
+
+### Testing the Queries
+
+The next major step is to upload content into memory so it can  be queried. To do this, we will first upload a PDF and store it in memory. After that, we will run some queries. Follow the directions below: 
+
+1. **Begin by creating a memory.** In this case, I will be using this PDF, which I recommend you use as well for testing:
+
+   [An Excellent Study of Social Media and Its Positive and Negative Effects on Human Being’s Mental Health](https://dr.lib.iastate.edu/server/api/core/bitstreams/8d3ccb03-cbc4-4b8a-b452-0ebccf0dde55/content)
+
+
+   Then run this command:
+
+   ```bash
+   goodmem memory create \
+     --space-id <YOUR_SPACE_ID_FROM_STEP_5> \
+     --file "path to where you downloaded the pdf" \
+     --content-type "application/pdf"
+   ```
+
+   It should output:
+
+   > Memory created successfully!\
+   >\
+   > ID:            xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Space ID:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Content Type:  application/pdf\
+   > Status:        PENDING\
+   > Created by:    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\
+   > Created at:    2025-08-20T21:20:00Z
+
+   **SAVE THE ID** (not the space ID since you already have that)
+
+2. To run a query, you have two options: non-interactive mode and interactive mode.
+
+   **Non-interactive mode:**  
+      ```bash
+      goodmem memory retrieve \
+        "what are the top three negative affects of social media?" \
+        --space-id <YOUR_SPACE_ID_FROM_STEP_5>
+      ```
+
+   **Interactive mode (easier to retrieve results):**
+
+   ```bash
+      goodmem memory retrieve \
+     --space-id  <YOUR_SPACE_ID_FROM_STEP_5>\
+     --post-processor-interactive "what are the top three negative affects of social media?"
+   ```
