@@ -4,16 +4,13 @@ on:
   push:
     branches:
       - main
-      - jupyter-kernels
     paths:
       - '.devcontainer/Dockerfile'
-      - '.github/workflows/docker-build-push.yml'
   pull_request:
     branches:
       - main
     paths:
       - '.devcontainer/Dockerfile'
-  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -50,7 +47,7 @@ jobs:
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=sha,prefix={{branch}}-
+            type=sha,prefix={{branch}}
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
