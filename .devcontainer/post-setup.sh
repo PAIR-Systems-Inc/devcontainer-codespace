@@ -3,9 +3,18 @@ set -e
 
 echo "=== Post-setup script started ==="
 
+# 0. Clone the GoodMem repository
+GOODMEM_REPO_DIR="goodmem"
+if [ ! -d "$GOODMEM_REPO_DIR" ]; then
+    git clone https://github.com/PAIR-Systems-Inc/goodmem.git "$GOODMEM_REPO_DIR"
+    echo "GoodMem repository cloned to $GOODMEM_REPO_DIR"
+else
+    echo "GoodMem repository already exists at $GOODMEM_REPO_DIR"
+fi
+
 # 1. Install GoodMem
 echo "Installing GoodMem..."
-curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration
+curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration --local-db
 
 # 2. Extract API key and add to ~/.bashrc
 echo "Configuring GoodMem API key..."
@@ -18,6 +27,7 @@ if [ -f ~/.goodmem/config.json ]; then
         else
             echo "GOODMEM_API_KEY already exists in ~/.bashrc"
         fi
+        echo "***REMEMBER GOODMEM_API_KEY=\"$API_KEY\"***"
     else
         echo "Warning: Could not extract api_key from config.json"
     fi
@@ -25,13 +35,5 @@ else
     echo "Warning: ~/.goodmem/config.json not found"
 fi
 
-# 3. Clone the GoodMem repository
-GOODMEM_REPO_DIR="goodmem"
-if [ ! -d "$GOODMEM_REPO_DIR" ]; then
-    git clone https://github.com/PAIR-Systems-Inc/goodmem.git "$GOODMEM_REPO_DIR"
-    echo "GoodMem repository cloned to $GOODMEM_REPO_DIR"
-else
-    echo "GoodMem repository already exists at $GOODMEM_REPO_DIR"
-fi
 
 echo "=== Post-setup script completed ==="

@@ -9,15 +9,13 @@ The **GoodMem DevContainer** is a pre-configured, zero-setup development environ
 ### Language Support
 - **Python 3.10** — includes the GoodMem SDK and OpenAI integration  
 - **Java 17**  
-- **.NET 8**  
+- **.NET 9**  
 - **Go 1.22**  
 - **Node.js 20** with `pnpm`
 
 ### Preinstalled Tooling
 - **Visual Studio Code Extensions** — language servers, formatters, linters, and productivity tools for all supported languages  
-- **Default User Configuration** — shell access as the `vscode` user with all tools and settings preloaded  
-- **Environment Variables and Volume Mounts** — automatically configured `.env` file and persistent Docker volumes
-- 
+
 ---
 
 # Next Steps
@@ -34,9 +32,10 @@ By now you should have installed GoodMem through the devcontainer. Below is a tu
    User ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
    ```
 
-2. **Save Your Root API Key**\
+2. **Save Your Root API Key**
    
      The Root API Key `(gm_xxxxxxxxxxxxxxxxxxxxxxxx)` is shown only once. It’s best to copy and store it now.
+     You may also locate the `api_key` under `~/.goodmem/config.json`
 
 4. **Obtain your OpenAI API Key** from the [OpenAI dashboard](https://platform.openai.com/api-keys) and keep it ready for the next step.
 
