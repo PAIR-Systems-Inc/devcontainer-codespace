@@ -1,8 +1,10 @@
 {
   "name": "GoodMem Dev Container",
-  "build": { "dockerfile": "Dockerfile" },
+  // "build": { "dockerfile": "Dockerfile" },
+  "image": "ghcr.io/pair-systems-inc/devcontainer-codespace:latest",
 
-  "postCreateCommand": "bash .devcontainer/setup.sh && bash .devcontainer/post-setup.sh",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postAttachCommand": "bash .devcontainer/post-setup.sh",
 
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
