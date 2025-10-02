@@ -26,8 +26,7 @@ else
 fi
 
 # 3. Clone the GoodMem repository
-echo "Cloning GoodMem repository..."
-GOODMEM_REPO_DIR="$HOME/goodmem"
+GOODMEM_REPO_DIR="goodmem"
 if [ ! -d "$GOODMEM_REPO_DIR" ]; then
     git clone https://github.com/PAIR-Systems-Inc/goodmem.git "$GOODMEM_REPO_DIR"
     echo "GoodMem repository cloned to $GOODMEM_REPO_DIR"
