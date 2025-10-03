@@ -3,10 +3,10 @@ set -e
 
 echo "=== Post-setup script started ==="
 
-# 0. Clone the GoodMem repository
-GOODMEM_REPO_DIR="goodmem"
+# 0. Clone the goodmem-samples repository
+GOODMEM_REPO_DIR="goodmem-samples"
 if [ ! -d "$GOODMEM_REPO_DIR" ]; then
-    git clone https://github.com/PAIR-Systems-Inc/goodmem.git "$GOODMEM_REPO_DIR"
+    git clone https://github.com/PAIR-Systems-Inc/goodmem-samples.git "$GOODMEM_REPO_DIR"
     echo "GoodMem repository cloned to $GOODMEM_REPO_DIR"
 else
     echo "GoodMem repository already exists at $GOODMEM_REPO_DIR"
