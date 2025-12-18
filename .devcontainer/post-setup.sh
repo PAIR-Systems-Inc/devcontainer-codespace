@@ -14,7 +14,7 @@ fi
 
 # 1. Install GoodMem
 echo "Installing GoodMem..."
-curl -s https://get.goodmem.ai | bash -s -- --prod-install --no-openai-embedder-registration --local-db
+curl -s https://get.goodmem.ai | bash -s -- --debug-install --local-db --no-openai-embedder-registration --tls-disabled
 
 # 2. Extract API key and add to ~/.bashrc
 echo "Configuring GoodMem API key..."
