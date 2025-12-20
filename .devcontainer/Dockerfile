@@ -102,3 +102,8 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Use Codespaces default; the repo will be mounted at /workspaces/<repo>
 WORKDIR /workspaces
+
+# Create Python virtual environment and activate it by default
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+ENV VIRTUAL_ENV="/opt/venv"
