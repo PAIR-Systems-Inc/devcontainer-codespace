@@ -14,7 +14,7 @@ fi
 
 # 1. Install GoodMem
 echo "Installing GoodMem..."
-curl -s https://get.goodmem.ai | bash -s -- --handsfree
+curl -s https://get.goodmem.ai | bash -s -- --handsfree --db-password "hjsaFGDGHS1726HSBD"
 
 # 2. Extract API key and add to ~/.bashrc
 echo "Configuring GoodMem API key..."
