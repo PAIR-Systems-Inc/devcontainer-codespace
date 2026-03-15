@@ -37,3 +37,11 @@ fi
 
 
 echo "=== Post-setup script completed ==="
+
+echo "====================================="
+echo "                                     "
+echo "Welcome to the GoodMem Dev Container! 🎉"
+echo "Click on the README.md file to get started!"
+echo "                                     "
+echo "====================================="
+

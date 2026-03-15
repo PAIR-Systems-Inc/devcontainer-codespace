@@ -1,3 +1,15 @@
+# GitHub Codespace Quick Start
+
+to get started with GoodMem lets create a few memories.
+
+### prerequisites
+
+you will need an openai api key for this quick start
+
+if you do not want to use an openai api key,
+please provide an api key from an embedding provider we support
+
+
 # GoodMem DevContainer
 
 The **GoodMem DevContainer** is a pre-configured, zero-setup development environment designed to help you start building immediately. It includes all necessary SDKs, tools, and extensions in a single, consistent container image.
