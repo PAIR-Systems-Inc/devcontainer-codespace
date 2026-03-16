@@ -1,27 +1,24 @@
 {
   "name": "GoodMem Dev Container",
-  // Option 1: Build docker image from local Dockerfile
-  // "build": { "dockerfile": "Dockerfile" },
+  // build docker image from local Dockerfile
+  "build": { "dockerfile": "Dockerfile" },
 
-  // Option 2: Use pre-built docker image from GitHub Container Registry
-  "image": "ghcr.io/pair-systems-inc/devcontainer-codespace:latest",
+  // build docker image from latest build on github container registry
+  // "image": "ghcr.io/pair-systems-inc/devcontainer-codespace:latest",
 
-  // run setup scripts after setting up docker container
-  "postCreateCommand" : [
-    "bash .devcontainer/setup.sh",
-    "bash .devcontainer/post-setup.sh"
-  ],
+  // "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postCreateCommand": "bash .devcontainer/post-setup.sh",
 
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-python.python",
-        "ms-vscode.vscode-docker",
-        "ms-toolsai.jupyter"
-      ]
-    }
-  }
+  // "features": {
+  //   "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  // },
+  // "customizations": {
+  //   "vscode": {
+  //     "extensions": [
+  //       // "ms-python.python",
+  //       // "ms-vscode.vscode-docker",
+  //       // "ms-toolsai.jupyter"
+  //     ]
+  //   }
+  // }
 }
