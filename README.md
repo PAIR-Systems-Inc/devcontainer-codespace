@@ -169,7 +169,7 @@ goodmem memory retrieve \
 To enable optional features, follow the instructions below.
 1. copy and paste this command in the terminal
 
-`source feature-installer.sh`
+`source optional-feature-installer.sh`
 
 2. hit enter
 
