@@ -56,10 +56,14 @@ echo ""
 
 case $selected in
   0)
+    echo "Installing Jupyter VS Code extension..."
+    code --install-extension ms-toolsai.jupyter 2>/dev/null || true
     echo "Starting Jupyter Lab..."
     jupyter lab --ip=0.0.0.0 --no-browser --allow-root
     ;;
   1)
+    echo "Installing Python VS Code extension..."
+    code --install-extension ms-python.python 2>/dev/null || true
     echo "Starting Python with GoodMem SDK..."
     echo "  - SDK docs: https://docs.goodmem.ai/python"
     echo "  - Sample:   src/test.py"

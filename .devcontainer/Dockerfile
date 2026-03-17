@@ -1,16 +1,12 @@
 FROM ubuntu:24.04
 
-# LABEL org.opencontainers.image.title="GoodMem Dev Environment" \
-#       org.opencontainers.image.description="Minimal setup for developing with GoodMem APIs (Python + JS + .NET)" \
-#       org.opencontainers.image.version="1.1.0"
-
-      LABEL org.opencontainers.image.title="GoodMem Local Dev Env" \
-      org.opencontainers.image.description="Minimal setup for developing with GoodMem APIs" \
+LABEL org.opencontainers.image.title="GoodMem Dev Environment" \
+      org.opencontainers.image.description="Minimal setup for developing with GoodMem API through GoodMem CLI" \
       org.opencontainers.image.version="1.2.0"
 
 SHELL ["/bin/bash", "-c"]
 
-# Base deps
+# Base dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget git unzip gnupg ca-certificates software-properties-common \
     apt-transport-https sudo
@@ -92,8 +88,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #   go install golang.org/x/tools/gopls@latest
 # RUN gonb --install
 
-# # APT clean up
-# RUN rm -rf /var/lib/apt/lists/*
+# APT clean up
+RUN rm -rf /var/lib/apt/lists/*
 
 # Dev user
 # EDIT: DISABLED for now to avoid permission issues with mounted volumes
