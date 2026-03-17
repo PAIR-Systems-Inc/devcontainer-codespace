@@ -2,15 +2,15 @@
 
 echo "=== Post-setup script started ==="
 
-# 1. Initialize GoodMem (binary already installed in image; re-run installer to set up DB and API key)
-echo "Initializing GoodMem..."
+# 1. Install GoodMem and initialize (create root user and generate API key while saving it to config.toml)
+echo "Installing GoodMem..."
 curl -s "https://get.goodmem.ai" | bash -s -- --handsfree --db-password "my-secure-password"
 # curl -s "https://get.goodmem.ai" | bash -s -- --handsfree --db-password "hjsaFGDGHS1726HSBD"
 
 # 2. Extract API key and add to ~/.bashrc
 echo "Configuring GoodMem API key..."
 if [ -f ~/.goodmem/config.toml ]; then
-    API_KEY=$(grep -o '"api_key"[[:space:]]*:[[:space:]]*"[^"]*"' ~/.goodmem/config.toml | cut -d'"' -f4)
+    API_KEY=$(grep "^api_key" ~/.goodmem/config.toml | cut -d"'" -f2)
     if [ -n "$API_KEY" ]; then
         if ! grep -q "GOODMEM_API_KEY" ~/.bashrc; then
             echo "export GOODMEM_API_KEY=\"$API_KEY\"" >> ~/.bashrc

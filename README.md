@@ -31,16 +31,22 @@ By now you should have installed GoodMem through the devcontainer. Below is a tu
 
 **Please follow the instructions in order**
 
-1. **Launch The Terminal**
+1. **Setup The Terminal**
 
-The terminal is usually located on the bottom half of the screen and should say display text like `root@codespaces`
+The terminal is usually located on the bottom half of the screen and should display the text `root@codespaces`
 
 If the terminal is not already open, you can launch the terminal in a few ways:
 
 - click the three bars (sandwich icon) at the top left of the screen -> View -> Terminal
 - click the bottom left warning icon -> Terminal
-- use keyboard shortcut `control + j`
-- use keyboard shortcut ```control + ` ```
+- use the keyboard shortcut `control + j`
+- use the keyboard shortcut ```control + ` ```
+
+If the terminal is open but it does not display the text `root@codespaces` you can do the following to open a new terminal:
+
+- click the '+' sign at the top right of the terminal
+- use the keyboard shortcut ```control + shift + ` ```
+- use the keyboard shortcut `control + shift + c`
 
 2. **Save Your GoodMem API Key**
 
@@ -158,7 +164,7 @@ It should output:
 **Non-interactive mode:**  
 ```bash
 goodmem memory retrieve \
-   --space-id YOUR_SPACE_ID_FROM_STEP_5\
+   --space-id YOUR_SPACE_ID_FROM_STEP_5 \
    "what are the top three negative affects of social media?"
 ```
 
@@ -166,7 +172,7 @@ goodmem memory retrieve \
 
 ```bash
 goodmem memory retrieve \
-   --space-id YOUR_SPACE_ID_FROM_STEP_5\
+   --space-id YOUR_SPACE_ID_FROM_STEP_5 \
    --post-processor-interactive "what are the top three negative affects of social media?"
 ```
 
