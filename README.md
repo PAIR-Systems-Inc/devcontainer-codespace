@@ -1,11 +1,17 @@
 # GitHub Codespace Quick Start
+<!--
+If you are seeing this text, you are not viewing the file in Preview (a readable format)
+To open this file in Preview:
+press `control + shift + v`
+or
+right click the file tab and click "Open Preview"
+-->
 
-<!-- **GoodMem DevContainer**  -->
 This GitHub Codespace is a pre-configured development environment to help you start building with GoodMem immediately through the command line tool.
 
 **Please make sure to read the requirements section.**
 
-To get started with GoodMem lets create a few memories by navigating to the [quick start instructions section](#quick-start-instructions).
+To get started with GoodMem navigate to the [quick start instructions section](#quick-start-instructions).
 
 > Note: If you would prefer to interact with GoodMem through a Jupyter Notebook or an SDK, please navigate to the [optional features section](#optional-features)
 
