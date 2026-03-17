@@ -1,16 +1,6 @@
 #!/bin/bash
-# set -e
 
 echo "=== Post-setup script started ==="
-
-# 0. Clone the goodmem-samples repository
-GOODMEM_REPO_DIR="goodmem-samples"
-if [ ! -d "$GOODMEM_REPO_DIR" ]; then
-    git clone https://github.com/PAIR-Systems-Inc/goodmem-samples.git "$GOODMEM_REPO_DIR"
-    echo "GoodMem repository cloned to $GOODMEM_REPO_DIR"
-else
-    echo "GoodMem repository already exists at $GOODMEM_REPO_DIR"
-fi
 
 # 1. Initialize GoodMem (binary already installed in image; re-run installer to set up DB and API key)
 echo "Initializing GoodMem..."
@@ -19,8 +9,8 @@ curl -s "https://get.goodmem.ai" | bash -s -- --handsfree --db-password "my-secu
 
 # 2. Extract API key and add to ~/.bashrc
 echo "Configuring GoodMem API key..."
-if [ -f ~/.goodmem/config.json ]; then
-    API_KEY=$(grep -o '"api_key"[[:space:]]*:[[:space:]]*"[^"]*"' ~/.goodmem/config.json | cut -d'"' -f4)
+if [ -f ~/.goodmem/config.toml ]; then
+    API_KEY=$(grep -o '"api_key"[[:space:]]*:[[:space:]]*"[^"]*"' ~/.goodmem/config.toml | cut -d'"' -f4)
     if [ -n "$API_KEY" ]; then
         if ! grep -q "GOODMEM_API_KEY" ~/.bashrc; then
             echo "export GOODMEM_API_KEY=\"$API_KEY\"" >> ~/.bashrc
@@ -30,10 +20,10 @@ if [ -f ~/.goodmem/config.json ]; then
         fi
         echo "***REMEMBER GOODMEM_API_KEY=\"$API_KEY\"***"
     else
-        echo "Warning: Could not extract api_key from config.json"
+        echo "Warning: Could not extract api_key from config.toml"
     fi
 else
-    echo "Warning: ~/.goodmem/config.json not found"
+    echo "Warning: ~/.goodmem/config.toml not found"
 fi
 
 

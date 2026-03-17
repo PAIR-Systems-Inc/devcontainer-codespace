@@ -59,6 +59,16 @@ case $selected in
     echo "Installing Jupyter VS Code extension..."
     code --install-extension ms-toolsai.jupyter 2>/dev/null || true
     echo "Starting Jupyter Lab..."
+
+    # clone the goodmem-samples repository
+    GOODMEM_REPO_DIR="goodmem-samples"
+    if [ ! -d "$GOODMEM_REPO_DIR" ]; then
+        git clone https://github.com/PAIR-Systems-Inc/goodmem-samples.git "$GOODMEM_REPO_DIR"
+        echo "GoodMem repository cloned to $GOODMEM_REPO_DIR"
+    else
+        echo "GoodMem repository already exists at $GOODMEM_REPO_DIR"
+    fi
+
     jupyter lab --ip=0.0.0.0 --no-browser --allow-root
     ;;
   1)
