@@ -10,34 +10,10 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget git unzip gnupg ca-certificates software-properties-common \
     apt-transport-https sudo
-    # build-essential apt-transport-https sudo \
-    # libffi-dev libssl-dev libpq-dev cargo \
-    # python3 python3-venv python3-pip python3-dev
 
 # # Node.js 20
 # RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 #     apt-get install -y nodejs
-
-# # ---- Java (OpenJDK 21) ----
-# RUN apt-get install -y --no-install-recommends \
-#       openjdk-21-jdk \
-#     && rm -rf /var/lib/apt/lists/*
-# ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-# ENV PATH="$JAVA_HOME/bin:${PATH}"
-
-# # quick sanity
-# RUN java -version && javac -version
-
-# # ---- Gradle (official binary) ----
-# RUN curl -fsSL https://services.gradle.org/distributions/gradle-8.9-bin.zip -o /tmp/gradle.zip \
-#  && unzip -q /tmp/gradle.zip -d /opt \
-#  && ln -s /opt/gradle-8.9 /opt/gradle \
-#  && rm -f /tmp/gradle.zip
-# ENV PATH="/opt/gradle/bin:${PATH}"
-
-# # quick sanity
-# RUN gradle -v
-
 
 ### JUPYTER KERNELS (optional, for users who want to use Jupyter notebooks in the container)
 

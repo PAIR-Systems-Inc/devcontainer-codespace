@@ -6,8 +6,8 @@
 options=(
   "Jupyter Notebook"
   "Python SDK"
-  "Java SDK"
   ".NET SDK"
+  "Java SDK"
   "Go SDK"
 )
 
@@ -74,6 +74,9 @@ case $selected in
 
     jupyter lab --ip=0.0.0.0 --no-browser --allow-root
     ;;
+  ###############################################################
+  ##################### installing Python #######################
+  ###############################################################
   1)
     echo "Installing Python VS Code extension..."
     code --install-extension ms-python.python 2>/dev/null || true
@@ -88,9 +91,33 @@ case $selected in
     echo "Installing Python SDK packages..."
     pip install --no-cache-dir --break-system-packages goodmem_client openai requests python-dotenv
     # jupyter lab
+
     echo "Python environment ready"
     ;;
+  ###############################################################
+  ###################### installing .NET ########################
+  ###############################################################
   2)
+    echo "Installing .NET SDK 8.0..."
+    sudo apt-get update && sudo apt-get install -y dotnet-sdk-8.0
+    sudo rm -rf /var/lib/apt/lists/*
+    echo "Creating .NET sample app with GoodMem client..."
+
+    DOTNET_APP_DIR="src/GoodMemDotnetApp"
+    if [ ! -d "$DOTNET_APP_DIR" ]; then
+      dotnet new console -o "$DOTNET_APP_DIR" -n GoodMemDotnetApp
+      ( cd "$DOTNET_APP_DIR" && dotnet add package Pairsystems.Goodmem.Client )
+    fi
+    ( cd "$DOTNET_APP_DIR" && dotnet restore && dotnet build )
+
+    echo ".NET environment ready"
+    echo "  - Sample app: $DOTNET_APP_DIR"
+    ;;
+
+  ###############################################################
+  ###################### installing Java ########################
+  ###############################################################
+  3)
     echo "Installing Java (OpenJDK 21) and Gradle 8.9..."
     sudo apt-get update && sudo apt-get install -y --no-install-recommends openjdk-21-jdk
     sudo rm -rf /var/lib/apt/lists/*
@@ -105,17 +132,15 @@ case $selected in
     export PATH="/opt/gradle/bin:$PATH"
 
     if ! grep -q 'JAVA_HOME' ~/.bashrc; then
-      cat >> ~/.bashrc <<'JAVAEOF'
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-export PATH="$JAVA_HOME/bin:/opt/gradle/bin:$PATH"
-JAVAEOF
+      echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64' >> ~/.bashrc
+      echo 'export PATH="$JAVA_HOME/bin:/opt/gradle/bin:$PATH"' >> ~/.bashrc
     fi
 
     java -version
     gradle -v
 
     echo "Creating Java sample app with GoodMem client..."
-    mkdir -p src
+
     JAVA_APP_DIR="src/GoodMemJavaApp"
 
     if [ ! -d "$JAVA_APP_DIR" ]; then
@@ -144,22 +169,9 @@ JAVAEOF
     echo "Java environment ready"
     echo "  - Sample app: $JAVA_APP_DIR"
     ;;
-  3)
-    echo "Installing .NET SDK 8.0..."
-    sudo apt-get update && sudo apt-get install -y dotnet-sdk-8.0
-    sudo rm -rf /var/lib/apt/lists/*
-    echo "Creating .NET sample app with GoodMem client..."
-    mkdir -p src
-    DOTNET_APP_DIR="src/GoodMemDotnetApp"
-    if [ ! -d "$DOTNET_APP_DIR" ]; then
-      dotnet new console -o "$DOTNET_APP_DIR" -n GoodMemDotnetApp
-      ( cd "$DOTNET_APP_DIR" && dotnet add package Pairsystems.Goodmem.Client )
-    fi
-    ( cd "$DOTNET_APP_DIR" && dotnet restore && dotnet build )
-
-    echo ".NET environment ready"
-    echo "  - Sample app: $DOTNET_APP_DIR"
-    ;;
+  ###############################################################
+  ######################## installing Go ########################
+  ###############################################################
   4)
     echo "Installing Go 1.24.6..."
     GO_VERSION=1.24.6
@@ -173,17 +185,15 @@ JAVAEOF
     export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
     if ! grep -q 'GOROOT' ~/.bashrc; then
-      cat >> ~/.bashrc <<'GOEOF'
-export GOROOT=/usr/local/go
-export GOPATH="$HOME/go"
-export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
-GOEOF
+      echo 'export GOROOT=/usr/local/go' >> ~/.bashrc
+      echo 'export GOPATH="$HOME/go"' >> ~/.bashrc
+      echo 'export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"' >> ~/.bashrc
     fi
 
     go version
 
     echo "Creating Go sample app with GoodMem client..."
-    mkdir -p src
+
     GO_APP_DIR="src/GoodMemGoApp"
     GO_SDK_MOD="github.com/PAIR-Systems-Inc/goodmem/clients/go@v1.0.10"
 
