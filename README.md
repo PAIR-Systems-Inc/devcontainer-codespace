@@ -216,6 +216,7 @@ goodmem memory retrieve \
 # Optional Features
 
 To enable optional features, follow the instructions below.
+
 1. copy and paste this command in the terminal
 
 `source .devcontainer/optional-feature-installer.sh`
