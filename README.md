@@ -41,6 +41,8 @@ The terminal is usually located on the bottom half of the screen and should disp
 
 If the terminal displays "Running postCreateCommand" please wait a few seconds for GoodMem to complete installation.
 
+You can also adjust the size of the terminal by dragging the top edge of the terminal screen.
+
 If the terminal is not already open, you can launch the terminal in a few ways:
 
 - use the keyboard shortcut `control + j`
@@ -74,7 +76,7 @@ goodmem embedder create \
    --endpoint-url "https://api.openai.com/v1" \
    --model-identifier "text-embedding-3-small" \
    --dimensionality 1536 \
-   --cred-api-key "YOUR_OPENAI_API_KEY_FROM_STEP_3"
+   --cred-api-key YOUR_OPENAI_API_KEY_FROM_STEP_3
 ```
 The command should output:
 
@@ -165,7 +167,7 @@ To do this, we will first upload a PDF and store it in memory. After that, we wi
 
 1. **Begin by creating a memory.** We will be using this pre-downloaded PDF:
 
-### An Excellent Study of Social Media and Its Positive and Negative Effects on Human Being’s Mental Health
+[An Excellent Study of Social Media and Its Positive and Negative Effects on Human Being’s Mental Health](https://dr.lib.iastate.edu/server/api/core/bitstreams/8d3ccb03-cbc4-4b8a-b452-0ebccf0dde55/content)
 
 Then run this command:
 
