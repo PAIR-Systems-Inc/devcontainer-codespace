@@ -6,7 +6,7 @@
   // build docker image from latest build on github container registry
   // "image": "ghcr.io/pair-systems-inc/devcontainer-codespace:latest",
 
-  "postCreateCommand": "bash .devcontainer/post-setup.sh",
+  "postCreateCommand": "bash .devcontainer/configure-goodmem.sh",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
