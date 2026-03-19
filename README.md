@@ -2,18 +2,21 @@
 <!--
 If you are seeing this text, you are not viewing the file in Preview (a readable format)
 To open this file in Preview:
+
 press `control + shift + v`
+
 or
-right click the file tab and click "Open Preview"
+
+right click the tab "README.md" above and click "Open Preview"
 -->
 
 This GitHub Codespace is a pre-configured development environment to help you start building with GoodMem immediately through the command line tool.
 
 **Please make sure to read the requirements section.**
 
-To get started with GoodMem navigate to the [quick start instructions section](#quick-start-instructions).
+> If you would prefer to interact with GoodMem through a Jupyter Notebook or an SDK, please navigate to the [optional features section](#optional-features)
 
-> Note: If you would prefer to interact with GoodMem through a Jupyter Notebook or an SDK, please navigate to the [optional features section](#optional-features)
+To get started with GoodMem navigate to the [quick start instructions section](#quick-start-instructions).
 
 ## Requirements
 
@@ -28,13 +31,15 @@ To get started with GoodMem navigate to the [quick start instructions section](#
 
 Below is a tutorial on how to use the Goodmem CLI (command line interface).
 
-You can use `control + c`, `control + shift + c`, `control + v`, and `control + shift + v` to copy paste commands for the tutorial below.
+You can use `control + c`, `control + shift + c`, `control + v`, and `control + shift + v` to copy paste commands and data for the tutorial below.
 
 **Please follow the instructions in order**
 
 1. **Setup The Terminal**
 
-The terminal is usually located on the bottom half of the screen and should display the text `devcontainer-codespace`
+The terminal is usually located on the bottom half of the screen and should display the text `devcontainer-codespace`.
+
+If the terminal displays "Running postCreateCommand" please wait a few seconds for GoodMem to complete installation.
 
 If the terminal is not already open, you can launch the terminal in a few ways:
 
