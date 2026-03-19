@@ -19,7 +19,7 @@ To get started with GoodMem navigate to the [quick start instructions section](#
 
 - An OpenAI API key (access at https://platform.openai.com/)
 - A running GoodMem server (already setup)
-- A GoodMem API key (already setup, access with `goodmem apikey list`)
+- A GoodMem API key (already setup, access with `grep key ~/.goodmem/config.toml`)
 
 > If you do not want to use an OpenAI API key, please use an embedding provider we support
 (Cohere, Jina, Voyage AI, vLLM, TEI, OpenAI)
@@ -52,7 +52,7 @@ If the terminal is open but it does not display the text `devcontainer-codespace
 
 2. **Save Your GoodMem API Key**
 
-Copy paste this command into the terminal using `control + shift + v`.
+Copy paste the command below into the terminal using `control + shift + v`.
 
 `grep key ~/.goodmem/config.toml`
 

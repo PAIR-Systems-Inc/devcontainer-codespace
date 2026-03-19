@@ -7,6 +7,7 @@ options=(
   "Jupyter Notebook"
   "Python SDK"
   ".NET SDK"
+  "Node.js SDK"
   "Java SDK"
   "Go SDK"
 )
@@ -113,11 +114,55 @@ case $selected in
     echo ".NET environment ready"
     echo "  - Sample app: $DOTNET_APP_DIR"
     ;;
+  ###############################################################
+  ################### installing Node.js ########################
+  ###############################################################
+  3)
+    echo "Installing Node.js 20..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
+    sudo apt-get install -y nodejs
+    sudo rm -rf /var/lib/apt/lists/*
 
+    npm install -g pnpm
+
+    node --version
+    pnpm --version
+
+    echo "Creating Node.js sample app with GoodMem client..."
+    NODE_APP_DIR="src/GoodMemNodeApp"
+
+    if [ ! -d "$NODE_APP_DIR" ]; then
+      mkdir -p "$NODE_APP_DIR"
+      cd "$NODE_APP_DIR"
+
+      cat > package.json <<'NODEPKG'
+{
+  "name": "goodmem-js-example",
+  "version": "1.0.0",
+  "description": "Automated dev environment for the GoodMem JS SDK",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "goodmem": "0.1.0"
+  }
+}
+NODEPKG
+
+      pnpm install
+      cd - >/dev/null
+    fi
+
+    echo "Node.js environment ready"
+    echo "  - Sample app: $NODE_APP_DIR"
+    ;;
   ###############################################################
   ###################### installing Java ########################
   ###############################################################
-  3)
+  4)
     echo "Installing Java (OpenJDK 21) and Gradle 8.9..."
     sudo apt-get update && sudo apt-get install -y --no-install-recommends openjdk-21-jdk
     sudo rm -rf /var/lib/apt/lists/*
@@ -172,7 +217,7 @@ case $selected in
   ###############################################################
   ######################## installing Go ########################
   ###############################################################
-  4)
+  5)
     echo "Installing Go 1.24.6..."
     GO_VERSION=1.24.6
     curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o /tmp/go.tgz
@@ -226,8 +271,8 @@ EOF
 
     go mod tidy
     go build ./...
-    cd - >/dev/null # is this line logical
-
+    
+    cd - >/dev/null
     echo "Go environment ready"
     echo "  - Sample app: $GO_APP_DIR"
     ;;
