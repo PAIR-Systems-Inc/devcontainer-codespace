@@ -11,35 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget git unzip gnupg ca-certificates software-properties-common \
     apt-transport-https sudo
 
-# # Node.js 20
-# RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-#     apt-get install -y nodejs
-
-### JUPYTER KERNELS (optional, for users who want to use Jupyter notebooks in the container)
-
-# # Dotnet Interactive (for Jupyter)
-# RUN dotnet tool install --global Microsoft.dotnet-interactive
-# ENV PATH="/root/.dotnet/tools:${PATH}"
-# RUN dotnet interactive jupyter install
-
-# # IJavascript (Node.js kernel for Jupyter)
-# RUN npm config set prefix $HOME
-# RUN npm install -g ijavascript
-# ENV PATH="/root/bin:${PATH}"
-# RUN ijsinstall
-
-# # JJava (Java kernel for Jupyter)
-# RUN curl -fsSL https://github.com/dflib/jjava/releases/download/1.0-a5/jjava-1.0-a5-kernelspec.zip -o /tmp/jjava.zip && \
-#     unzip -q /tmp/jjava.zip -d /tmp/jjava-1.0-a5-kernelspec && \
-#     cd /tmp && \
-#     jupyter kernelspec install jjava-1.0-a5-kernelspec --user --name=java
-
-# # GONB (Go kernel for Jupyter)
-# RUN go install github.com/janpfeifer/gonb@latest && \
-#   go install golang.org/x/tools/cmd/goimports@latest && \
-#   go install golang.org/x/tools/gopls@latest
-# RUN gonb --install
-
 # Dev user
 # EDIT: DISABLED for now to avoid permission issues with mounted volumes
 # RUN useradd -m -s /bin/bash vscode && \
