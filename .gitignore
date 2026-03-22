@@ -1,0 +1,67 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# LLM / AI tools
+.cursor/
+.copilot/
+.aider*
+.claude/
+.continue/
+*.cursorrules
+.github/copilot-instructions.md
+claude.json
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+COPILOT.md
+
+# Env files
+.env
+.env.local
+.env*.local
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Java / Gradle
+.gradle/
+build/
+*.class
+*.jar
+*.war
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Go
+vendor/
