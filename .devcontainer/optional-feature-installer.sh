@@ -62,7 +62,13 @@ case $selected in
   0)
     echo "Installing Jupyter VS Code extension..."
     code --install-extension ms-toolsai.jupyter 2>/dev/null || true
-    echo "Starting Jupyter Lab..."
+
+    echo "Installing Jupyter and python kernel..."
+    sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+      python3 python3-pip python3-dev
+    sudo rm -rf /var/lib/apt/lists/*
+    # the --break-system-packages flag installs to the native Python installation instead of a virtual environment
+    pip install --no-cache-dir --break-system-packages jupyter lab python-dotenv
 
     # clone the goodmem-samples repository
     GOODMEM_REPO_DIR="goodmem-samples"
@@ -73,7 +79,9 @@ case $selected in
         echo "GoodMem repository already exists at $GOODMEM_REPO_DIR"
     fi
 
-    jupyter lab --ip=0.0.0.0 --no-browser --allow-root
+    # echo "Starting Jupyter Lab..."
+    echo "Jupyter environment ready"
+    echo "  - Open any .ipynb file in VS Code to start"
     ;;
   ###############################################################
   ##################### installing Python #######################
@@ -83,8 +91,8 @@ case $selected in
     code --install-extension ms-python.python 2>/dev/null || true
 
     echo "Installing Python dependencies..."
-    sudo apt-get install -y --no-install-recommends \
-      build-essential python3-pip python3-dev \
+    sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+      python3 build-essential python3-pip python3-dev \
       libffi-dev libssl-dev
     sudo rm -rf /var/lib/apt/lists/*
     sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
